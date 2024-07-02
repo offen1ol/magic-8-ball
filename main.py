@@ -37,6 +37,9 @@ def think():
     print("Thinking...")
     answer_string.set("Thinking...")
 
+# def play_again():
+    
+
 def answer(num): 
     responses = {
         1: "It is certain",
@@ -64,35 +67,25 @@ def answer(num):
     print(responses[num])
     answer_string.set(responses[num])
 
-    # additional button frame
+    # disable buttons once "ask" button is clicked
+    entry_box["state"] = "disabled"
+    clear_button["state"] = "disabled"
+    ask_button["state"] = "disabled"
+
+    # menu button frame
     menu_frame = ttk.Frame(master = window)
     menu_frame.pack()
 
     # replay button
-    replay_button = ttk.Button(master = menu_frame, text = "Play Again")
-    replay_button.pack(side = "left")
+    replay_button = ttk.Button(master = menu_frame, text = "Play Again", command = lambda: play_again())
+    replay_button.pack(side = "left", padx = 10)
 
     # quit button
-    quit_button = ttk.Button(master = menu_frame, text = "Quit")
-    quit_button.pack(side = "left")
-
-
-
-# def main():
-#     # ask = str(input("What would you like to know?\n")).lower()
-#     ask = 0
-
-#     # while ask != "quit":
-#     #     answer(random.randrange(1,20))
-
-#     #     ask = str(input("What else would you like to know?\n")).lower()
-    
-
-# if __name__ == '__main__':
-#     main()
+    quit_button = ttk.Button(master = menu_frame, text = "Quit", command = lambda: window.destroy())
+    quit_button.pack(side = "left", padx = 10)
 
 # create gui window
-window = ttk.Window(themename = "morph")
+window = ttk.Window(themename = "vapor")
 
 # window title
 window.title("Magic 8 Ball")
@@ -100,15 +93,15 @@ window.title("Magic 8 Ball")
 # window dimension
 window.geometry("350x200")
 
-# menu title
-header_title = ttk.Label(master = window,
-                       text = "What would you like to know?",
-                       font = "Arial 18")
-header_title.pack()
-
 # input frame
 input_frame = ttk.Frame(master = window)
-input_frame.pack()
+input_frame.pack(pady = 15)
+
+# menu title
+header_title = ttk.Label(master = input_frame,
+                       text = "What would you like to know?",
+                       font = "Arial 18")
+header_title.pack(pady = 5)
 
 # answer 
 answer_string = tk.StringVar()
@@ -116,7 +109,7 @@ answer_label = ttk.Label(master = window,
                          text = "Answer",
                          textvariable = answer_string,
                          font = "Arial 18 bold")
-answer_label.pack()
+answer_label.pack(pady = 10)
 
 # textbox and clear button
 entry_string = tk.StringVar()
