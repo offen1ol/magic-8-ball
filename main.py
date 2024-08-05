@@ -37,8 +37,18 @@ def think():
     print("Thinking...")
     answer_string.set("Thinking...")
 
-# TODO
-# function to check if the entry box is empty, throw exception if so
+# function to check if the entry box is empty, throw error message if true
+def check_question(question):
+    if len(str(question)) == 0:
+        answer_string.set("I didn't see a question...")
+        create_menu_frame()
+        disable_buttons()
+        print("There is no question")  
+    else:
+        # call disable_buttons
+        disable_buttons()
+        think()
+        answer_label.after(5000, answer, random.randrange(1,20))
 
 # disable buttons once "ask" button is clicked
 def disable_buttons():
@@ -96,9 +106,6 @@ def answer(num):
     print(responses[num])
     answer_string.set(responses[num])
 
-    # call disable_buttons
-    disable_buttons()
-
     # call create_menu_frame()
     create_menu_frame()
 
@@ -139,7 +146,7 @@ clear_button = ttk.Button(master = input_frame,
                           command = lambda: clear())
 ask_button = ttk.Button(master = input_frame, 
                         text = "Ask", 
-                        command = lambda: [think(), answer_label.after(5000, answer, random.randrange(1,20))])
+                        command = lambda: check_question(entry_string.get()))
 
 entry_box.pack(side = "left")
 clear_button.pack(side = "left")
