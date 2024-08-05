@@ -154,4 +154,3 @@ ask_button.pack(side = "left")
 
 # run window
 window.mainloop()
-
