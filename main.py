@@ -37,8 +37,37 @@ def think():
     print("Thinking...")
     answer_string.set("Thinking...")
 
-# def play_again():
+# TODO
+# function to check if the entry box is empty, throw exception if so
+
+# disable buttons once "ask" button is clicked
+def disable_buttons():
+    entry_box["state"] = "disabled"
+    clear_button["state"] = "disabled"
+    ask_button["state"] = "disabled"
     
+def enable_buttons():
+    entry_box["state"] = "enabled"
+    clear_button["state"] = "enabled"
+    ask_button["state"] = "enabled"
+
+# create menu button frame each time
+def create_menu_frame(): 
+    menu_frame = ttk.Frame(master = window)
+    menu_frame.pack()
+
+    # replay button
+    replay_button = ttk.Button(master = menu_frame, text = "Play Again", command = lambda: [
+        menu_frame.destroy(), 
+        enable_buttons(), 
+        answer_string.set(""), 
+        clear(),
+        ])
+    replay_button.pack(side = "left", padx = 10)
+
+    # quit button
+    quit_button = ttk.Button(master = menu_frame, text = "Quit", command = lambda: window.destroy())
+    quit_button.pack(side = "left", padx = 10)
 
 def answer(num): 
     responses = {
@@ -67,22 +96,11 @@ def answer(num):
     print(responses[num])
     answer_string.set(responses[num])
 
-    # disable buttons once "ask" button is clicked
-    entry_box["state"] = "disabled"
-    clear_button["state"] = "disabled"
-    ask_button["state"] = "disabled"
+    # call disable_buttons
+    disable_buttons()
 
-    # menu button frame
-    menu_frame = ttk.Frame(master = window)
-    menu_frame.pack()
-
-    # replay button
-    replay_button = ttk.Button(master = menu_frame, text = "Play Again", command = lambda: play_again())
-    replay_button.pack(side = "left", padx = 10)
-
-    # quit button
-    quit_button = ttk.Button(master = menu_frame, text = "Quit", command = lambda: window.destroy())
-    quit_button.pack(side = "left", padx = 10)
+    # call create_menu_frame()
+    create_menu_frame()
 
 # create gui window
 window = ttk.Window(themename = "vapor")
